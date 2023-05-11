@@ -1,17 +1,14 @@
 function getiOSVersion() {
   const userAgent = navigator.userAgent;
-  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-    // Kiểm tra xem thiết bị đang chạy iOS
-    const match = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
-    if (match) {
-      // Lấy các phiên bản số từ userAgent
-      const version = [
-        parseInt(match[1], 10),
-        parseInt(match[2], 10),
-        parseInt(match[3] || 0, 10),
-      ];
-      return version;
-    }
+  const match = userAgent.match(
+    /(iPad|iPhone|iPod)\s+OS\s+(\d+_)?(\d+(\.\d+)?(\.\d+)?)/i
+  );
+  document.getElementById("detail").textContent = userAgent;
+  document.getElementById("detail1").textContent = match || 'Unmatched';
+  if (match) {
+    // Lấy phiên bản iOS từ user agent
+    const version = match[3].replace(/_/g, ".");
+    return version;
   }
   return null; // Trả về null nếu không phải iOS
 }
